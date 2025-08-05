@@ -30,8 +30,11 @@ func main() {
 	for _, remoteAPIURL := range remoteAPIURL {
 		getData = append(getData, getDataFromURL(remoteAPIURL))
 	}
-	// Append it to the string.
-	appendAndWriteToFile("pgpro.html", strings.Join(getData, "\n"))
+	localHTMLFile := "pgpro.html"
+	if !fileExists(localHTMLFile) {
+		// Append it to the string.
+		appendAndWriteToFile(localHTMLFile, strings.Join(getData, "\n"))
+	}
 	// Get the data from the downloaded file.
 	finalPDFList := extractPDFUrls(strings.Join(getData, "\n")) // Join all the data into one string and extract PDF URLs
 	// Create a slice of all the given download urls.
