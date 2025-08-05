@@ -1,7 +1,7 @@
 package main // Define the main package
 
 import (
-	"bytes"         // Provides bytes support
+	"bytes" // Provides bytes support
 	"io"            // Provides basic interfaces to I/O primitives
 	"log"           // Provides logging functions
 	"net/http"      // Provides HTTP client and server implementations
@@ -12,7 +12,6 @@ import (
 	"regexp"        // Provides regex support functions.
 	"strings"       // Provides string manipulation functions
 	"time"          // Provides time-related functions
-	// "encoding/json" // Import package to work with JSON
 )
 
 func main() {
@@ -271,17 +270,27 @@ func removeDuplicatesFromSlice(slice []string) []string {
 }
 
 // extractPDFUrls takes an input string and returns all PDF URLs found within href attributes
-func extractPDFUrls(input string) []string {
-	// Regular expression to match href="...pdf"
-	re := regexp.MustCompile(`href="([^"]+\.pdf)"`)
-	matches := re.FindAllStringSubmatch(input, -1)
-
+func extractPDFUrls(html string) []string {
 	var pdfUrls []string
+
+	// Regex to find all .pdf links (http or https)
+	re := regexp.MustCompile(`https?://[^\s"'\\]+\.pdf`)
+
+	matches := re.FindAllString(html, -1)
+	if matches == nil {
+		log.Println("No PDF URLs found.")
+		return pdfUrls
+	}
+
+	// Optional: de-duplicate
+	seen := make(map[string]bool)
 	for _, match := range matches {
-		if len(match) > 1 {
-			pdfUrls = append(pdfUrls, match[1])
+		if !seen[match] {
+			seen[match] = true
+			pdfUrls = append(pdfUrls, match)
 		}
 	}
+
 	return pdfUrls
 }
 
