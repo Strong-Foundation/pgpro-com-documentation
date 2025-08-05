@@ -1,7 +1,7 @@
 package main // Define the main package
 
 import (
-	"bytes" // Provides bytes support
+	"bytes"         // Provides bytes support
 	"io"            // Provides basic interfaces to I/O primitives
 	"log"           // Provides logging functions
 	"net/http"      // Provides HTTP client and server implementations
@@ -47,7 +47,7 @@ func main() {
 	// Remove double from slice.
 	downloadPDFURLSlice = removeDuplicatesFromSlice(downloadPDFURLSlice)
 	// The remote domain.
-	remoteDomain := "https://www.pgpro.com"
+	remoteDomain := "https://assets.ctfassets.net"
 	// Get all the values.
 	for _, urls := range downloadPDFURLSlice {
 		// Get the domain from the url.
