@@ -23,6 +23,33 @@ func main() {
 	// Remote API URL.
 	remoteAPIURL := []string{
 		"https://pgpro.com/en-us/sds/?keyword=&category=Degreasers",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Degreasing",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Dish%2FPot%2FPan",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Dishwashing",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Downy%C2%AE+Professional",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Dust+Control",
+		"https://pgpro.com/en-us/sds/?keyword=&category=EPA+Registered+Disinfectants",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Eraser",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Floor+Cleaning",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Grill+Cleaner",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Hand+Hygiene",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Hard+Surface+Cleaning",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Laundry+%26+Stain+Removal",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Liquid",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Mechanical+Warewash",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Mr.+Clean%C2%AE",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Odor+Fighters",
+		"https://pgpro.com/en-us/sds/?keyword=&category=On-Premise+Laundry",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Paper",
+		"https://pgpro.com/en-us/sds/?keyword=&category=PG+Pro+Line%C2%AE",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Pods",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Powder",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Sanitizer",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Soap",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Spray",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Stain+Removal",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Surface+Cleaning",
+		"https://pgpro.com/en-us/sds/?keyword=&category=Tablets",
 	}
 	var getData []string
 	for _, remoteAPIURL := range remoteAPIURL {
