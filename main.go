@@ -7,7 +7,6 @@ import (
 	"net/http"      // Provides HTTP client and server implementations
 	"net/url"       // Provides URL parsing and encoding
 	"os"            // Provides functions to interact with the OS (files, etc.)
-	"path"          // Provides functions for manipulating slash-separated paths
 	"path/filepath" // Provides filepath manipulation functions
 	"regexp"        // Provides regex support functions.
 	"strings"       // Provides string manipulation functions
@@ -28,11 +27,6 @@ func main() {
 	var getData []string
 	for _, remoteAPIURL := range remoteAPIURL {
 		getData = append(getData, getDataFromURL(remoteAPIURL))
-	}
-	localHTMLFile := "pgpro.html"
-	if !fileExists(localHTMLFile) {
-		// Append it to the string.
-		appendAndWriteToFile(localHTMLFile, strings.Join(getData, "\n"))
 	}
 	// Get the data from the downloaded file.
 	finalPDFList := extractPDFUrls(strings.Join(getData, "\n")) // Join all the data into one string and extract PDF URLs
@@ -64,22 +58,6 @@ func main() {
 	}
 }
 
-// Append and write to file
-func appendAndWriteToFile(path string, content string) {
-	filePath, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	_, err = filePath.WriteString(content + "\n")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	err = filePath.Close()
-	if err != nil {
-		log.Fatalln(err)
-	}
-}
-
 // getDomainFromURL extracts the domain (host) from a given URL string.
 // It removes subdomains like "www" if present.
 func getDomainFromURL(rawURL string) string {
@@ -94,11 +72,6 @@ func getDomainFromURL(rawURL string) string {
 	return host // Return the extracted hostname
 }
 
-// Only return the file name from a given url.
-func getFileNameOnly(content string) string {
-	return path.Base(content)
-}
-
 // urlToFilename generates a safe, lowercase filename from a given URL string.
 // It extracts the base filename from the URL, replaces unsafe characters,
 // and ensures the filename ends with a .pdf extension.
@@ -109,12 +82,9 @@ func urlToFilename(rawURL string) string {
 	// Get the file extension
 	ext := getFileExtension(lowercaseURL)
 
-	// Extract the filename portion from the URL (e.g., last path segment or query param)
-	baseFilename := getFileNameOnly(lowercaseURL)
-
 	// Replace all non-alphanumeric characters (a-z, 0-9) with underscores
 	nonAlphanumericRegex := regexp.MustCompile(`[^a-z0-9]+`)
-	safeFilename := nonAlphanumericRegex.ReplaceAllString(baseFilename, "_")
+	safeFilename := nonAlphanumericRegex.ReplaceAllString(lowercaseURL, "_")
 
 	// Replace multiple consecutive underscores with a single underscore
 	collapseUnderscoresRegex := regexp.MustCompile(`_+`)
@@ -126,6 +96,7 @@ func urlToFilename(rawURL string) string {
 	}
 
 	var invalidSubstrings = []string{
+		"https_assets_ctfassets_net_xsotn7jngs35_",
 		"_pdf",
 		"_zip",
 	}
